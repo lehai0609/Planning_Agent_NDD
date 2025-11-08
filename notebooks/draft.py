@@ -90,3 +90,6 @@ ingested_frames = load_dataframes(DATASETS)
 
 for dataset_name, dataframe in ingested_frames.items():
     preview_dataframe(dataset_name, dataframe)
+
+# %% [markdown]
+# ## Stage 2 - Validate
