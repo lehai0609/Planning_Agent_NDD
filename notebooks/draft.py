@@ -644,3 +644,211 @@ if income_statement_rules:
     display(Markdown("### Aggregated Income Statement (first 10 lines)"))
     display(income_statement_df.head(10)[["order", "line", "amount", "accounts"]])
 
+# %% [markdown]
+# ## Stage 6 - Coverage & Validation
+# Objective: Ensure financial statements match expected totals and relationships.
+# Input: Aggregated Balance Sheet and Income Statement DataFrames.
+# Output: Validation report with pass/fail status for each key condition
+
+# %%
+from typing import Tuple
+
+VALIDATION_TOLERANCE = 1e-2
+
+
+def _flatten_amount(value: Any) -> float:
+    """Convert stored amount (possibly tuple) into a single numeric figure."""
+    if isinstance(value, tuple):
+        pos, neg = value
+        return float(pos) + float(neg)
+    return float(value)
+
+
+def prepare_statement(df: pd.DataFrame) -> pd.DataFrame:
+    prepared = df.copy()
+    prepared["amount_numeric"] = prepared["amount"].apply(_flatten_amount)
+    return prepared
+
+
+def explode_assignments(df: pd.DataFrame, prefix: str) -> pd.DataFrame:
+    exploded = df.explode("accounts").dropna(subset=["accounts"]).copy()
+    exploded["account_no"] = exploded["accounts"].astype(str)
+    return exploded.rename(
+        columns={
+            "line": f"{prefix}_line",
+            "section": f"{prefix}_section",
+            "rule": f"{prefix}_rule",
+        }
+    )[[
+        f"{prefix}_line",
+        f"{prefix}_section",
+        f"{prefix}_rule",
+        "account_no",
+        "amount",
+        "amount_numeric",
+    ]]
+
+
+def build_coverage_table(
+    year: int,
+    tb_leaves: pd.DataFrame,
+    bs_df: pd.DataFrame,
+    pl_df: pd.DataFrame,
+) -> pd.DataFrame:
+    base = tb_leaves.copy()
+    base["account_no"] = base["account_no"].astype(str)
+    bs_assign = explode_assignments(prepare_statement(bs_df), "bs")
+    pl_assign = explode_assignments(prepare_statement(pl_df), "pl")
+
+    coverage = (
+        base.merge(bs_assign, on="account_no", how="left")
+        .merge(pl_assign, on="account_no", how="left", suffixes=("", "_pl"))
+    )
+
+    coverage["mapped_bs"] = coverage["bs_line"].notna()
+    coverage["mapped_pl"] = coverage["pl_line"].notna()
+    coverage["year"] = year
+    return coverage
+
+
+def classify_bs_role(section: str | None) -> str:
+    if not section:
+        return "other"
+    lower = section.lower()
+    if "asset" in lower:
+        return "assets"
+    if "liabilit" in lower:
+        return "liabilities"
+    if "equity" in lower:
+        return "equity"
+    return "other"
+
+
+def compute_net_income(pl_df: pd.DataFrame) -> float:
+    credit_rules = {"closing_credit", "turnover_911_credit"}
+    debit_rules = {"closing_debit", "turnover_911_debit"}
+    total = 0.0
+    for _, row in pl_df.iterrows():
+        amount = row["amount_numeric"]
+        rule_type = row["rule"]
+        if rule_type in credit_rules:
+            total += amount
+        elif rule_type in debit_rules:
+            total -= amount
+        else:
+            total += amount
+    return total
+
+
+bs_prepared = prepare_statement(balance_sheet_df) if "balance_sheet_df" in locals() else None
+pl_prepared = prepare_statement(income_statement_df) if "income_statement_df" in locals() else None
+
+if bs_prepared is not None and pl_prepared is not None:
+    coverage_2025 = build_coverage_table(2025, TB_LEAVES[2025], bs_prepared, pl_prepared)
+
+    coverage_summary = (
+        coverage_2025.groupby(
+            ["category", "mapped_bs", "mapped_pl"], dropna=False
+        )
+        .agg(count=("account_no", "count"), total_closing=("closing_signed", "sum"))
+        .reset_index()
+    )
+
+    display(Markdown("### Coverage summary (2025)"))
+    display(coverage_summary)
+
+    unmapped_bs = coverage_2025[(coverage_2025["category"].str.upper() == "BS") & ~coverage_2025["mapped_bs"]]
+    unmapped_pl = coverage_2025[(coverage_2025["category"].str.upper() == "PL") & ~coverage_2025["mapped_pl"]]
+
+    if not unmapped_bs.empty:
+        display(Markdown("#### Unmapped balance-sheet leaf accounts"))
+        display(unmapped_bs[["account_no", "account_desc", "closing_signed"]])
+    if not unmapped_pl.empty:
+        display(Markdown("#### Unmapped income-statement leaf accounts"))
+        display(unmapped_pl[["account_no", "account_desc", "closing_signed"]])
+
+    bs_role_totals = (
+        bs_prepared.assign(bs_role=bs_prepared["section"].apply(classify_bs_role))
+        .groupby("bs_role")
+        .agg(total=("amount_numeric", "sum"))
+        .to_dict()["total"]
+    )
+    assets_total = bs_role_totals.get("assets", 0.0)
+    liabilities_total = bs_role_totals.get("liabilities", 0.0)
+    equity_total = bs_role_totals.get("equity", 0.0)
+    balance_difference = assets_total - (liabilities_total + equity_total)
+
+    tb_bs_total = coverage_2025[coverage_2025["category"].str.upper() == "BS"]["closing_signed"].sum()
+    aggregated_bs_total = bs_prepared["amount_numeric"].sum()
+
+    pl_net_income = compute_net_income(pl_prepared)
+    tb_pl_total = coverage_2025[coverage_2025["category"].str.upper() == "PL"]["closing_signed"].sum()
+    pl_difference = pl_net_income + tb_pl_total
+
+    retained_earnings_accounts = coverage_2025[
+        (coverage_2025["account_no"].str.startswith("421")) & coverage_2025["mapped_bs"]
+    ]
+    retained_balance = retained_earnings_accounts["closing_signed"].sum()
+
+    validation_rows = [
+        {
+            "check": "Assets equal Liabilities + Equity",
+            "status": abs(balance_difference) <= VALIDATION_TOLERANCE,
+            "difference": balance_difference,
+        },
+        {
+            "check": "Balance Sheet totals reconcile to TB (BS category)",
+            "status": abs(aggregated_bs_total - tb_bs_total) <= VALIDATION_TOLERANCE,
+            "difference": aggregated_bs_total - tb_bs_total,
+        },
+        {
+            "check": "Income Statement net income matches TB PL total",
+            "status": abs(pl_difference) <= VALIDATION_TOLERANCE,
+            "difference": pl_difference,
+        },
+        {
+            "check": "Retained earnings present",
+            "status": retained_balance != 0,
+            "difference": retained_balance,
+        },
+    ]
+
+    duplicates_bs = (
+        coverage_2025[coverage_2025["mapped_bs"]]
+        .groupby("account_no")
+        .filter(lambda g: g["bs_line"].nunique() > 1)
+        .drop_duplicates(subset=["account_no", "bs_line"])
+    )
+    duplicates_pl = (
+        coverage_2025[coverage_2025["mapped_pl"]]
+        .groupby("account_no")
+        .filter(lambda g: g["pl_line"].nunique() > 1)
+        .drop_duplicates(subset=["account_no", "pl_line"])
+    )
+
+    if not duplicates_bs.empty:
+        validation_rows.append(
+            {
+                "check": "Duplicate BS mappings detected",
+                "status": False,
+                "difference": len(duplicates_bs["account_no"].unique()),
+            }
+        )
+        display(Markdown("#### Duplicate balance-sheet mappings"))
+        display(duplicates_bs[["account_no", "account_desc", "bs_line"]])
+
+    if not duplicates_pl.empty:
+        validation_rows.append(
+            {
+                "check": "Duplicate PL mappings detected",
+                "status": False,
+                "difference": len(duplicates_pl["account_no"].unique()),
+            }
+        )
+        display(Markdown("#### Duplicate income-statement mappings"))
+        display(duplicates_pl[["account_no", "account_desc", "pl_line"]])
+
+    validation_report = pd.DataFrame(validation_rows)
+    display(Markdown("### Validation report"))
+    display(validation_report)
+

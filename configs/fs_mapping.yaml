@@ -5,9 +5,11 @@ balance_sheet:
     codes:
     - '111'
     - '112'
+    - '113'
     prefixes:
     - '111'
     - '112'
+    - '113'
   rule: closing_signed
   presentation:
     indent: 1
@@ -240,6 +242,16 @@ balance_sheet:
     - '2429'
     prefixes:
     - '2429'
+  rule: closing_signed
+  presentation:
+    indent: 1
+- line: Other non-current assets
+  section: Non-current Assets
+  selectors:
+    codes:
+    - '244'
+    prefixes:
+    - '244'
   rule: closing_signed
   presentation:
     indent: 1
