@@ -581,8 +581,66 @@ if balance_sheet_rules:
     display(balance_sheet_df.head(10)[["order", "line", "amount", "accounts"]])
 
 # %% [markdown]
-# ## Stage 6 - Income Statement Aggregation
+# ## Stage 5b - Income Statement Aggregation
 # Objective: Produce Income Statement values matching template lines, using leaf accounts exactly once.
 # Input: Current year leaf TB, Income Statement rules from config.
 # Output: Structured DataFrame with ordered lines, amounts, and traceable account lists.
+
+# %%
+def _normalize_pl_columns(df: pd.DataFrame) -> pd.DataFrame:
+    """Reuse balance normalization for income statement accounts."""
+    return _normalize_balance_columns(df)
+
+
+def _calc_pl_amount(df: pd.DataFrame, rule_type: str) -> float:
+    """Compute income statement amount based on rule type."""
+    if rule_type in {"closing_signed"}:
+        return df["closing"].sum()
+    if rule_type in {"closing_debit", "turnover_911_debit"}:
+        return df["closing_debit"].sum()
+    if rule_type in {"closing_credit", "turnover_911_credit"}:
+        return -df["closing_credit"].sum()
+    raise ValueError(f"Unrecognized income statement rule: {rule_type}")
+
+
+def aggregate_income_statement(
+    leaf_tb: pd.DataFrame,
+    pl_rules: List[Dict[str, Any]],
+) -> pd.DataFrame:
+    """Aggregate leaf-level trial balances into income statement lines."""
+    leaf_tb = _normalize_pl_columns(leaf_tb)
+    mapped_accounts = set()
+    rows: List[Dict[str, Any]] = []
+
+    for order, rule in enumerate(pl_rules):
+        selectors = rule.get("selectors", {})
+        rule_type = rule.get("rule", "closing_signed")
+        selected = select_leaf_accounts(leaf_tb, selectors)
+
+        overlap = set(selected["account_no"]) & mapped_accounts
+        if overlap:
+            raise ValueError(
+                f"Accounts double-mapped in income statement line '{rule['line']}': {sorted(overlap)}"
+            )
+
+        mapped_accounts.update(selected["account_no"])
+        amount = _calc_pl_amount(selected, rule_type) if not selected.empty else 0.0
+        rows.append(
+            {
+                "line": rule["line"],
+                "section": rule.get("section"),
+                "amount": amount,
+                "accounts": selected["account_no"].astype(str).tolist(),
+                "rule": rule_type,
+                "order": order,
+            }
+        )
+
+    return pd.DataFrame(rows)
+
+
+if income_statement_rules:
+    income_statement_df = aggregate_income_statement(TB_LEAVES[2025], income_statement_rules)
+    display(Markdown("### Aggregated Income Statement (first 10 lines)"))
+    display(income_statement_df.head(10)[["order", "line", "amount", "accounts"]])
 
