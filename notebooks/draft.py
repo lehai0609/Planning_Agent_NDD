@@ -103,7 +103,7 @@ for dataset_name, dataframe in ingested_frames.items():
     preview_dataframe(dataset_name, dataframe)
     persist_dataframe(dataset_name, dataframe)
 
-# %% [markdown]
+# %% [markdown] 
 # ## Stage 2 - Validate the import database
 # In this stage, we will validate the ingested general ledger & trial balance for completeness, format and correctness.
 
@@ -766,6 +766,18 @@ if bs_prepared is not None and pl_prepared is not None:
     if not unmapped_pl.empty:
         display(Markdown("#### Unmapped income-statement leaf accounts"))
         display(unmapped_pl[["account_no", "account_desc", "closing_signed"]])
+        pl_prefix_summary = (
+            unmapped_pl.assign(prefix=unmapped_pl["account_no"].str[:3])
+            .groupby("prefix", dropna=False)
+            .agg(
+                count=("account_no", "count"),
+                total_closing=("closing_signed", "sum"),
+            )
+            .reset_index()
+            .sort_values("total_closing", key=lambda s: s.abs(), ascending=False)
+        )
+        display(Markdown("#### Unmapped PL prefixes (sorted by absolute balance)"))
+        display(pl_prefix_summary)
 
     bs_role_totals = (
         bs_prepared.assign(bs_role=bs_prepared["section"].apply(classify_bs_role))
@@ -774,16 +786,29 @@ if bs_prepared is not None and pl_prepared is not None:
         .to_dict()["total"]
     )
     assets_total = bs_role_totals.get("assets", 0.0)
-    liabilities_total = bs_role_totals.get("liabilities", 0.0)
-    equity_total = bs_role_totals.get("equity", 0.0)
+    liabilities_total = -bs_role_totals.get("liabilities", 0.0)
+    equity_total = -bs_role_totals.get("equity", 0.0)
     balance_difference = assets_total - (liabilities_total + equity_total)
 
     tb_bs_total = coverage_2025[coverage_2025["category"].str.upper() == "BS"]["closing_signed"].sum()
     aggregated_bs_total = bs_prepared["amount_numeric"].sum()
 
     pl_net_income = compute_net_income(pl_prepared)
-    tb_pl_total = coverage_2025[coverage_2025["category"].str.upper() == "PL"]["closing_signed"].sum()
-    pl_difference = pl_net_income + tb_pl_total
+    pl_coverage = coverage_2025[coverage_2025["category"].str.upper() == "PL"].copy()
+    credit_rules = {"closing_credit", "turnover_911_credit"}
+    debit_rules = {"closing_debit", "turnover_911_debit"}
+    tb_pl_debit = (
+        pl_coverage[pl_coverage["pl_rule"].isin(debit_rules)]["closing_signed"]
+        .clip(lower=0)
+        .sum()
+    )
+    tb_pl_credit = (
+        -pl_coverage[pl_coverage["pl_rule"].isin(credit_rules)]["closing_signed"]
+        .clip(upper=0)
+        .sum()
+    )
+    tb_pl_net = tb_pl_credit - tb_pl_debit
+    pl_difference = pl_net_income - tb_pl_net
 
     retained_earnings_accounts = coverage_2025[
         (coverage_2025["account_no"].str.startswith("421")) & coverage_2025["mapped_bs"]
@@ -847,6 +872,17 @@ if bs_prepared is not None and pl_prepared is not None:
         )
         display(Markdown("#### Duplicate income-statement mappings"))
         display(duplicates_pl[["account_no", "account_desc", "pl_line"]])
+
+    credit_balance_debits = pl_coverage[
+        (pl_coverage["pl_rule"].isin(debit_rules)) & (pl_coverage["closing_signed"] < 0)
+    ]
+    if not credit_balance_debits.empty:
+        display(Markdown("#### PL debit-mapped accounts with credit balances"))
+        display(
+            credit_balance_debits[
+                ["account_no", "account_desc", "pl_line", "closing_signed"]
+            ]
+        )
 
     validation_report = pd.DataFrame(validation_rows)
     display(Markdown("### Validation report"))
