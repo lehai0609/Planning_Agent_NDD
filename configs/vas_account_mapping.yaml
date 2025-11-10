@@ -1,0 +1,2420 @@
+version: '1.0'
+source:
+  file: Mapping VAS.xlsx
+  description: Vietnam Accounting Standard (VAS) account mapping to Financial Statements
+    and Leadsheets
+mapping_rules:
+  hierarchy:
+    description: 'Account code hierarchy: 1st (3-digit) -> 2nd (4-digit) -> Sub-level
+      (5+ digit)'
+    match_order:
+    - sub_level
+    - second_level
+    - first_level
+    match_strategy: longest_match
+    note: When matching, try sub-level first, then second-level, then first-level
+      as fallback
+  account_mappings:
+    first_level:
+      '111':
+      - &id001
+        account_code: '1111'
+        description: Tiền Việt Nam
+        leadsheet:
+          code: D100
+          name: D100. CASH & CASH EQUIVALENTS
+        fs_target:
+          code: '111'
+          label: 111 ▪ Tiền
+      '112':
+      - &id002
+        account_code: '1121'
+        description: Tiền Việt Nam
+        leadsheet:
+          code: D100
+          name: D100. CASH & CASH EQUIVALENTS
+        fs_target:
+          code: '111'
+          label: 111 ▪ Tiền
+      '113':
+      - &id003
+        account_code: '1131'
+        description: Tiền Việt Nam
+        leadsheet:
+          code: D100
+          name: D100. CASH & CASH EQUIVALENTS
+        fs_target:
+          code: '111'
+          label: 111 ▪ Tiền
+      '121':
+      - &id004
+        account_code: '1211'
+        description: Cổ phiếu
+        leadsheet:
+          code: D200
+          name: D200. SHORT TERM INVESTMENTS
+        fs_target:
+          code: '121'
+          label: 121 ▪ Chứng khoán kinh doanh
+      '128':
+      - &id005
+        account_code: '1282'
+        description: Trái phiếu
+        leadsheet:
+          code: D200
+          name: D200. SHORT TERM INVESTMENTS
+        fs_target:
+          code: '123'
+          label: 123 ▪ Đầu tư nắm giữ đến ngày đáo hạn
+      '133':
+      - &id006
+        account_code: '1331'
+        description: Thuế GTGT được khấu trừ của hàng hóa, dịch vụ
+        leadsheet:
+          code: E300
+          name: E300. TAX BALANCES & TAX EXPENSES
+        fs_target:
+          code: '152'
+          label: 152 ▪ Thuế GTGT được khấu trừ
+      '136':
+      - &id007
+        account_code: '1361'
+        description: Vốn kinh doanh ở các đơn vị trực thuộc
+        leadsheet:
+          code: D300
+          name: D300. TRADE RECEIVABLES
+        fs_target:
+          code: '213'
+          label: 213 ▪ Vốn kinh doanh ở các đơn vị trực thuộc
+      - &id008
+        account_code: '1362'
+        description: Phải thu nội bộ về chênh lệch tỷ giá
+        leadsheet:
+          code: D300
+          name: D300. TRADE RECEIVABLES
+        fs_target:
+          code: '133'
+          label: 133 ▪ Phải thu nội bộ ngắn hạn
+      - &id009
+        account_code: 136a
+        description: Phải thu nội bộ (dài hạn)
+        leadsheet:
+          code: D300
+          name: D300. TRADE RECEIVABLES
+        fs_target:
+          code: '214'
+          label: 214 ▪ Phải thu nội bộ dài hạn
+      '138':
+      - &id010
+        account_code: '1381'
+        description: Tài sản thiếu chờ xử lý
+        leadsheet:
+          code: D800
+          name: D800. OTHERS ASSETS
+        fs_target:
+          code: '139'
+          label: 139 ▪ Tài sản thiếu chờ xử lý
+      - &id011
+        account_code: '1385'
+        description: Phải thu về cổ phần hoá
+        leadsheet:
+          code: D800
+          name: D800. OTHERS ASSETS
+        fs_target:
+          code: '136'
+          label: 136 ▪ Phải thu ngắn hạn khác
+      - &id012
+        account_code: 138x
+        description: Dư có TK 138 (ngắn hạn)
+        leadsheet:
+          code: D800
+          name: D800. OTHERS ASSETS
+        fs_target:
+          code: '319'
+          label: 319 ▪ Phải trả ngắn hạn khác
+      '141':
+      - &id013
+        account_code: '141'
+        description: Tạm ứng
+        leadsheet:
+          code: D800
+          name: D800. OTHERS ASSETS
+        fs_target:
+          code: '136'
+          label: 136 ▪ Phải thu ngắn hạn khác
+      - &id014
+        account_code: '1412'
+        description: Tạm ứng - dài hạn
+        leadsheet:
+          code: D800
+          name: D800. OTHERS ASSETS
+        fs_target:
+          code: '216'
+          label: 216 ▪ Phải thu dài hạn khác
+      '151':
+      - &id015
+        account_code: '151'
+        description: Hàng mua đang đi đường
+        leadsheet:
+          code: D400
+          name: D400. INVENTORIES
+        fs_target:
+          code: '141'
+          label: 141 ▪ Hàng tồn kho
+      '152':
+      - &id016
+        account_code: '152'
+        description: Nguyên liệu, vật liệu
+        leadsheet:
+          code: D400
+          name: D400. INVENTORIES
+        fs_target:
+          code: '141'
+          label: 141 ▪ Hàng tồn kho
+      '153':
+      - &id017
+        account_code: '153'
+        description: Công cụ, dụng cụ
+        leadsheet:
+          code: D400
+          name: D400. INVENTORIES
+        fs_target:
+          code: '141'
+          label: 141 ▪ Hàng tồn kho
+      '154':
+      - &id018
+        account_code: '1541'
+        description: Chi phí sản xuất, kinh doanh dở dang
+        leadsheet:
+          code: D400
+          name: D400. INVENTORIES
+        fs_target:
+          code: '141'
+          label: 141 ▪ Hàng tồn kho
+      - &id019
+        account_code: '1542'
+        description: Chi phí sản xuất, kinh doanh dở dang dài hạn
+        leadsheet:
+          code: D400
+          name: D400. INVENTORIES
+        fs_target:
+          code: '241'
+          label: 241 ▪ Chi phí sản xuất, kinh doanh dở dang dài hạn
+      '155':
+      - &id020
+        account_code: '1551'
+        description: Thành phẩm nhập kho
+        leadsheet:
+          code: D400
+          name: D400. INVENTORIES
+        fs_target:
+          code: '141'
+          label: 141 ▪ Hàng tồn kho
+      '156':
+      - &id021
+        account_code: '1561'
+        description: Giá mua hàng hóa
+        leadsheet:
+          code: D400
+          name: D400. INVENTORIES
+        fs_target:
+          code: '141'
+          label: 141 ▪ Hàng tồn kho
+      '157':
+      - &id022
+        account_code: '157'
+        description: Hàng gửi đi bán
+        leadsheet:
+          code: D400
+          name: D400. INVENTORIES
+        fs_target:
+          code: '141'
+          label: 141 ▪ Hàng tồn kho
+      '158':
+      - &id023
+        account_code: '158'
+        description: Hàng hoá kho bảo thuế
+        leadsheet:
+          code: D400
+          name: D400. INVENTORIES
+        fs_target:
+          code: '141'
+          label: 141 ▪ Hàng tồn kho
+      '161':
+      - &id024
+        account_code: '1611'
+        description: Chi sự nghiệp năm trước
+        fs_target:
+          code: '431'
+          label: 431 ▪ Nguồn kinh phí
+      '171':
+      - &id025
+        account_code: '171'
+        description: Giao dịch mua bán lại trái phiếu chính phủ
+        fs_target:
+          code: '154'
+          label: 154 ▪ Giao dịch mua bán lại trái phiếu Chính phủ
+      '211':
+      - &id026
+        account_code: '2111'
+        description: Nhà cửa, vật kiến trúc
+        leadsheet:
+          code: D600
+          name: D600. TANGIBLE AND INTANGIBLE FIXED ASSETS
+        fs_target:
+          code: '222'
+          label: 222   - Nguyên giá
+      '212':
+      - &id027
+        account_code: '2121'
+        description: TSCĐ hữu hình thuê tài chính
+        leadsheet:
+          code: D600
+          name: D600. TANGIBLE AND INTANGIBLE FIXED ASSETS
+        fs_target:
+          code: '225'
+          label: 225   - Nguyên giá
+      '213':
+      - &id028
+        account_code: '2131'
+        description: Quyền sử dụng đất
+        leadsheet:
+          code: D600
+          name: D600. TANGIBLE AND INTANGIBLE FIXED ASSETS
+        fs_target:
+          code: '228'
+          label: 228   - Nguyên giá
+      '214':
+      - &id029
+        account_code: '2141'
+        description: Hao mòn TSCĐ hữu hình
+        leadsheet:
+          code: D600
+          name: D600. TANGIBLE AND INTANGIBLE FIXED ASSETS
+        fs_target:
+          code: '223'
+          label: 223   - Giá trị hao mòn lũy kế
+      - &id030
+        account_code: '2142'
+        description: Hao mòn TSCĐ thuê tài chính
+        leadsheet:
+          code: D600
+          name: D600. TANGIBLE AND INTANGIBLE FIXED ASSETS
+        fs_target:
+          code: '226'
+          label: 226   - Giá trị hao mòn lũy kế
+      - &id031
+        account_code: '2143'
+        description: Hao mòn TSCĐ vô hình
+        leadsheet:
+          code: D600
+          name: D600. TANGIBLE AND INTANGIBLE FIXED ASSETS
+        fs_target:
+          code: '229'
+          label: 229   - Giá trị hao mòn lũy kế
+      - &id032
+        account_code: '2147'
+        description: Hao mòn bất động sản đầu tư
+        leadsheet:
+          code: D700
+          name: D700. LONG TERM INVESTMENT & INVESTMENT PROPERTY
+        fs_target:
+          code: '232'
+          label: 232   - Giá trị hao mòn lũy kế
+      '217':
+      - &id033
+        account_code: '217'
+        description: Bất động sản đầu tư
+        leadsheet:
+          code: D700
+          name: D700. LONG TERM INVESTMENT & INVESTMENT PROPERTY
+        fs_target:
+          code: '231'
+          label: 231   - Nguyên giá
+      '221':
+      - &id034
+        account_code: '221'
+        description: Đầu tư vào công ty con
+        leadsheet:
+          code: D700
+          name: D700. LONG TERM INVESTMENT & INVESTMENT PROPERTY
+        fs_target:
+          code: '251'
+          label: 251 ▪ Đầu tư vào công ty con
+      '222':
+      - &id035
+        account_code: '222'
+        description: Đầu tư vào công ty liên doanh, liên kết
+        leadsheet:
+          code: D700
+          name: D700. LONG TERM INVESTMENT & INVESTMENT PROPERTY
+        fs_target:
+          code: '252'
+          label: 252 ▪ Đầu tư vào công ty liên doanh, liên kết
+      '228':
+      - &id036
+        account_code: '2281'
+        description: Đầu tư góp vốn vào đơn vị khác
+        leadsheet:
+          code: D700
+          name: D700. LONG TERM INVESTMENT & INVESTMENT PROPERTY
+        fs_target:
+          code: '253'
+          label: 253 ▪ Đầu tư góp vốn vào đơn vị khác
+      '229':
+      - &id037
+        account_code: '2291'
+        description: Dự phòng giảm giá chứng khoán kinh doanh
+        leadsheet:
+          code: D200
+          name: D200. SHORT TERM INVESTMENTS
+        fs_target:
+          code: '122'
+          label: 122 ▪ Dự phòng giảm giá chứng khoán kinh doanh
+      - &id038
+        account_code: '2292'
+        description: Dự phòng tổn thất đầu tư vào đơn vị khác
+        leadsheet:
+          code: D700
+          name: D700. LONG TERM INVESTMENT & INVESTMENT PROPERTY
+        fs_target:
+          code: '254'
+          label: 254 ▪ Dự phòng đầu tư tài chính dài hạn
+      - &id039
+        account_code: '2294'
+        description: Dự phòng giảm giá hàng tồn kho
+        leadsheet:
+          code: D400
+          name: D400. INVENTORIES
+        fs_target:
+          code: '149'
+          label: 149 ▪ Dự phòng giảm giá hàng tồn kho
+      '241':
+      - &id040
+        account_code: '2411'
+        description: Mua sắm TSCĐ
+        leadsheet:
+          code: D600
+          name: D600. TANGIBLE AND INTANGIBLE FIXED ASSETS
+        fs_target:
+          code: '242'
+          label: 242 ▪ Chi phí xây dựng cơ bản dở dang
+      '242':
+      - &id041
+        account_code: '2421'
+        description: Chi phí trả trước ngắn hạn
+        leadsheet:
+          code: D500
+          name: D500. PREPAYMENTS
+        fs_target:
+          code: '151'
+          label: 151 ▪ Chi phí trả trước ngắn hạn
+      - &id042
+        account_code: '2422'
+        description: Chi phí trả trước dài hạn
+        leadsheet:
+          code: D500
+          name: D500. PREPAYMENTS
+        fs_target:
+          code: '261'
+          label: 261 ▪ Chi phí trả trước dài hạn
+      '243':
+      - &id043
+        account_code: '243'
+        description: Tài sản thuế thu nhập hoãn lại
+        leadsheet:
+          code: E300
+          name: E300. TAX BALANCES & TAX EXPENSES
+        fs_target:
+          code: '262'
+          label: 262 ▪ Tài sản thuế thu nhập hoãn lại
+      '244':
+      - &id044
+        account_code: '2441'
+        description: Cầm cố, thế chấp, ký quỹ, ký cược (ngắn hạn)
+        leadsheet:
+          code: D800
+          name: D800. OTHERS ASSETS
+        fs_target:
+          code: '136'
+          label: 136 ▪ Phải thu ngắn hạn khác
+      - &id045
+        account_code: '2442'
+        description: Cầm cố, thế chấp, ký quỹ, ký cược (dài hạn)
+        leadsheet:
+          code: D800
+          name: D800. OTHERS ASSETS
+        fs_target:
+          code: '216'
+          label: 216 ▪ Phải thu dài hạn khác
+      '333':
+      - &id046
+        account_code: '3332'
+        description: Thuế tiêu thụ đặc biệt
+        leadsheet:
+          code: E300
+          name: E300. TAX BALANCES & TAX EXPENSES
+        fs_target:
+          code: '313'
+          label: 313 ▪ Thuế và các khoản phải nộp Nhà nước
+      - &id047
+        account_code: 333x
+        description: Dư Nợ TK 333 (Thuế và các khoản phải thu nhà nước)
+        leadsheet:
+          code: E300
+          name: E300. TAX BALANCES & TAX EXPENSES
+        fs_target:
+          code: '153'
+          label: 153 ▪ Thuế và các khoản khác phải thu Nhà nước
+      '334':
+      - &id048
+        account_code: '3341'
+        description: Phải trả công nhân viên
+        leadsheet:
+          code: E400
+          name: E400. PAYABLES TO EMPLOYEES
+        fs_target:
+          code: '314'
+          label: 314 ▪ Phải trả người lao động
+      '335':
+      - &id049
+        account_code: '335'
+        description: Chi phí phải trả
+        leadsheet:
+          code: E500
+          name: E500. ACCRUALS & PROVISIONS
+        fs_target:
+          code: '315'
+          label: 315 ▪ Chi phí phải trả ngắn hạn
+      - &id050
+        account_code: 335a
+        description: Chi phí phải trả dài hạn
+        leadsheet:
+          code: E500
+          name: E500. ACCRUALS & PROVISIONS
+        fs_target:
+          code: '333'
+          label: 333 ▪ Chi phí phải trả dài hạn
+      '336':
+      - &id051
+        account_code: '3361'
+        description: Phải trả nội bộ về vốn kinh doanh
+        leadsheet:
+          code: E200
+          name: E200. TRADE PAYABLES
+        fs_target:
+          code: '334'
+          label: 334 ▪ Phải trả nội bộ về vốn kinh doanh
+      - &id052
+        account_code: '3362'
+        description: Phải trả nội bộ về chênh lệch tỷ giá
+        leadsheet:
+          code: E200
+          name: E200. TRADE PAYABLES
+        fs_target:
+          code: '316'
+          label: 316 ▪ Phải trả nội bộ ngắn hạn
+      '337':
+      - &id053
+        account_code: '337'
+        description: Thanh toán theo tiến độ kế hoạch hợp đồng xây dựng
+        leadsheet:
+          code: E200
+          name: E200. TRADE PAYABLES
+        fs_target:
+          code: '317'
+          label: 317 ▪ Phải trả theo tiến độ kế hoạch HĐXD
+      - &id054
+        account_code: 337x
+        description: Bên Nợ TK 337 (Phải thu theo tiến độ kế hoạch hợp đồng xây dựng)
+        leadsheet:
+          code: D300
+          name: D300. TRADE RECEIVABLES
+        fs_target:
+          code: '134'
+          label: 134 ▪ Phải thu theo tiến độ kế hoạch HĐXD
+      '338':
+      - &id055
+        account_code: '3381'
+        description: Tài sản thừa chờ giải quyết
+        leadsheet:
+          code: E600
+          name: E600. OTHER PAYABLES
+        fs_target:
+          code: '319'
+          label: 319 ▪ Phải trả ngắn hạn khác
+      - &id056
+        account_code: 338x
+        description: Dư nợ TK 338
+        leadsheet:
+          code: E600
+          name: E600. OTHER PAYABLES
+        fs_target:
+          code: '136'
+          label: 136 ▪ Phải thu ngắn hạn khác
+      '343':
+      - &id057
+        account_code: '3432'
+        description: Trái phiếu chuyển đổi
+        leadsheet:
+          code: E100
+          name: E100. LOANS AND BORROWING
+        fs_target:
+          code: '339'
+          label: 339 ▪ Trái phiếu chuyển đổi
+      '344':
+      - &id058
+        account_code: '344'
+        description: Nhận ký quỹ, ký cược
+        leadsheet:
+          code: E600
+          name: E600. OTHER PAYABLES
+        fs_target:
+          code: '319'
+          label: 319 ▪ Phải trả ngắn hạn khác
+      - &id059
+        account_code: 344a
+        description: Nhận ký quỹ, ký cược dài hạn
+        leadsheet:
+          code: E600
+          name: E600. OTHER PAYABLES
+        fs_target:
+          code: '337'
+          label: 337 ▪ Phải trả dài hạn khác
+      '347':
+      - &id060
+        account_code: '347'
+        description: Thuế thu nhập hoãn lại phải trả
+        leadsheet:
+          code: E300
+          name: E300. TAX BALANCES & TAX EXPENSES
+        fs_target:
+          code: '341'
+          label: 341 ▪ Thuế thu nhập hoãn lại phải trả
+      '352':
+      - &id061
+        account_code: '3521'
+        description: Dự phòng bảo hành sản phẩm hàng hóa
+        leadsheet:
+          code: E200
+          name: E200. TRADE PAYABLES
+        fs_target:
+          code: '321'
+          label: 321 ▪ Dự phòng phải trả ngắn hạn
+      - &id062
+        account_code: '3529'
+        description: Dự phòng phải trả dài hạn
+        leadsheet:
+          code: E200
+          name: E200. TRADE PAYABLES
+        fs_target:
+          code: '342'
+          label: 342 ▪ Dự phòng phải trả dài hạn
+      '353':
+      - &id063
+        account_code: '3531'
+        description: Quỹ khen thưởng
+        leadsheet:
+          code: F100
+          name: F100. EQUITY & FUNDS
+        fs_target:
+          code: '322'
+          label: 322 ▪ Quỹ khen thưởng, phúc lợi
+      '356':
+      - &id064
+        account_code: '3561'
+        description: Quỹ phát triển khoa học và công nghệ
+        leadsheet:
+          code: F100
+          name: F100. EQUITY & FUNDS
+        fs_target:
+          code: '343'
+          label: 343 ▪ Quỹ phát triển khoa học và công nghệ
+      '357':
+      - &id065
+        account_code: '357'
+        description: Quỹ bình ổn giá
+        leadsheet:
+          code: F100
+          name: F100. EQUITY & FUNDS
+        fs_target:
+          code: '323'
+          label: 323 ▪ Quỹ bình ổn giá
+      '411':
+      - &id066
+        account_code: '4112'
+        description: Thặng dư vốn cổ phần
+        leadsheet:
+          code: F100
+          name: F100. EQUITY & FUNDS
+        fs_target:
+          code: '412'
+          label: 412 ▪ Thặng dư vốn cổ phần
+      - &id067
+        account_code: '4113'
+        description: Quyền chọn chuyển đổi trái phiếu
+        leadsheet:
+          code: F100
+          name: F100. EQUITY & FUNDS
+        fs_target:
+          code: '413'
+          label: 413 ▪ Quyền chọn chuyển đổi trái phiếu
+      - &id068
+        account_code: '4118'
+        description: Vốn khác
+        leadsheet:
+          code: F100
+          name: F100. EQUITY & FUNDS
+        fs_target:
+          code: '414'
+          label: 414 ▪ Vốn khác của chủ sở hữu
+      '412':
+      - &id069
+        account_code: '412'
+        description: Chênh lệch đánh giá lại tài sản
+        leadsheet:
+          code: F100
+          name: F100. EQUITY & FUNDS
+        fs_target:
+          code: '416'
+          label: 416 ▪ Chênh lệnh đánh giá lại tài sản
+      '413':
+      - &id070
+        account_code: '4131'
+        description: Chênh lệch tỷ giá do đánh giá lại các khoản mục tiền
+          tệ có gốc ngoại tệ
+        leadsheet:
+          code: F100
+          name: F100. EQUITY & FUNDS
+        fs_target:
+          code: '417'
+          label: 417 ▪ Chênh lệch tỷ giá hối đoái
+      '414':
+      - &id071
+        account_code: '414'
+        description: Quỹ đầu tư phát triển
+        leadsheet:
+          code: F100
+          name: F100. EQUITY & FUNDS
+        fs_target:
+          code: '418'
+          label: 418 ▪ Quỹ đầu tư phát triển
+      '417':
+      - &id072
+        account_code: '417'
+        description: Quỹ hỗ trợ sắp xếp doanh nghiệp
+        leadsheet:
+          code: F100
+          name: F100. EQUITY & FUNDS
+        fs_target:
+          code: '419'
+          label: "419 ▪ Quỹ hỗ trợ sắp xếp\n   Doanh nghiệp"
+      '418':
+      - &id073
+        account_code: '418'
+        description: Các quỹ khác thuộc vốn chủ sở hữu
+        leadsheet:
+          code: F100
+          name: F100. EQUITY & FUNDS
+        fs_target:
+          code: '420'
+          label: 420 ▪ Quỹ khác thuộc vốn chủ sở hữu
+      '419':
+      - &id074
+        account_code: '419'
+        description: Cổ phiếu quỹ
+        leadsheet:
+          code: F100
+          name: F100. EQUITY & FUNDS
+        fs_target:
+          code: '415'
+          label: 415 ▪ Cổ phiếu quỹ
+      '421':
+      - &id075
+        account_code: '4211'
+        description: Lợi nhuận sau thuế chưa phân phối năm trước
+        leadsheet:
+          code: F100
+          name: F100. EQUITY & FUNDS
+        fs_target:
+          code: 421a
+          label: 421a   - Lợi nhuận sau thuế chưa phân phối/(lỗ) lũy kế đến cuối kỳ
+            trước
+      - &id076
+        account_code: '4212'
+        description: Lợi nhuận sau thuế chưa phân phối năm nay
+        leadsheet:
+          code: F100
+          name: F100. EQUITY & FUNDS
+        fs_target:
+          code: 421b
+          label: 421b   - Lợi nhuận sau thuế chưa phân phối/(lỗ) kỳ này
+      '441':
+      - &id077
+        account_code: '441'
+        description: Nguồn vốn đầu tư xây dựng cơ bản
+        leadsheet:
+          code: F100
+          name: F100. EQUITY & FUNDS
+        fs_target:
+          code: '422'
+          label: 422 ▪ Nguồn vốn đầu tư XDCB
+      '461':
+      - &id078
+        account_code: '4611'
+        description: Nguồn kinh phí sự nghiệp năm trước
+        leadsheet:
+          code: F100
+          name: F100. EQUITY & FUNDS
+        fs_target:
+          code: '431'
+          label: 431 ▪ Nguồn kinh phí
+      '466':
+      - &id079
+        account_code: '466'
+        description: Nguồn kinh phí đã hình thành TSCĐ
+        leadsheet:
+          code: F100
+          name: F100. EQUITY & FUNDS
+        fs_target:
+          code: '432'
+          label: 432 ▪ Nguồn kinh phí đã hình thành TSCĐ
+      '511':
+      - &id080
+        account_code: '5111'
+        description: Doanh thu bán hàng hóa
+        leadsheet:
+          code: G100
+          name: G100. SALE AND COST OF GOOD SOLD
+        fs_target:
+          code: '01'
+          label: 01 ▪ Doanh thu
+      '515':
+      - &id081
+        account_code: '515'
+        description: Doanh thu hoạt động tài chính
+        leadsheet:
+          code: G200
+          name: G200. FINANCIAL INCOMES & FINANCIAL EXPENSES
+        fs_target:
+          code: '21'
+          label: 21 ▪ Doanh thu hoạt động tài chính
+      '521':
+      - &id082
+        account_code: '5211'
+        description: Chiết khấu thương mại
+        leadsheet:
+          code: G100
+          name: G100. SALE AND COST OF GOOD SOLD
+        fs_target:
+          code: '02'
+          label: 02 ▪ Các khoản giảm trừ doanh thu
+      '632':
+      - &id083
+        account_code: '632'
+        description: Giá vốn hàng bán
+        leadsheet:
+          code: G100
+          name: G100. SALE AND COST OF GOOD SOLD
+        fs_target:
+          code: '11'
+          label: 11 ▪ Giá vốn hàng bán
+      '635':
+      - &id084
+        account_code: '635'
+        description: Chi phí tài chính
+        leadsheet:
+          code: G200
+          name: G200. FINANCIAL INCOMES & FINANCIAL EXPENSES
+        fs_target:
+          code: '22'
+          label: 22 ▪ Chi phí hoạt động tài chính
+      '641':
+      - &id085
+        account_code: '6411'
+        description: Chi phí nhân viên
+        leadsheet:
+          code: G300
+          name: G300. SELLING EXPENSES & ADMINISTRATIVE EXPENSES
+        fs_target:
+          code: '25'
+          label: 25 ▪ Chi phí bán hàng
+      '642':
+      - &id086
+        account_code: '6421'
+        description: Chi phí nhân viên quản lý
+        leadsheet:
+          code: G300
+          name: G300. SELLING EXPENSES & ADMINISTRATIVE EXPENSES
+        fs_target:
+          code: '26'
+          label: 26 ▪ Chi phí quản lý doanh nghiệp
+      '711':
+      - &id087
+        account_code: '711'
+        description: Thu nhập khác
+        leadsheet:
+          code: G400
+          name: G400. OTHER INCOMES & OTHER EXPENSES
+        fs_target:
+          code: '31'
+          label: 31 ▪ Thu nhập khác
+      '811':
+      - &id088
+        account_code: '811'
+        description: Chi phí khác
+        leadsheet:
+          code: G400
+          name: G400. OTHER INCOMES & OTHER EXPENSES
+        fs_target:
+          code: '32'
+          label: 32 ▪ Chi phí khác
+      '821':
+      - &id089
+        account_code: '8211'
+        description: Chi phí thuế TNDN hiện hành
+        leadsheet:
+          code: E300
+          name: E300. TAX BALANCES & TAX EXPENSES
+        fs_target:
+          code: '51'
+          label: 51 ▪ Chi phí thuế thu nhập doanh nghiệp hiện hành
+      - &id090
+        account_code: '8212'
+        description: Chi phí thuế TNDN hoãn lại
+        leadsheet:
+          code: E300
+          name: E300. TAX BALANCES & TAX EXPENSES
+        fs_target:
+          code: '52'
+          label: 52 ▪ Thu nhập/(chi phí) thuế TNDN hoãn lại
+    second_level:
+      '1111':
+      - *id001
+      '1112':
+      - account_code: '1112'
+        description: Ngoại tệ
+        leadsheet:
+          code: D100
+          name: D100. CASH & CASH EQUIVALENTS
+        fs_target:
+          code: '111'
+          label: 111 ▪ Tiền
+      '1113':
+      - account_code: '1113'
+        description: Vàng tiền tệ
+        leadsheet:
+          code: D100
+          name: D100. CASH & CASH EQUIVALENTS
+        fs_target:
+          code: '111'
+          label: 111 ▪ Tiền
+      '1121':
+      - *id002
+      '1122':
+      - account_code: '1122'
+        description: Ngoại tệ
+        leadsheet:
+          code: D100
+          name: D100. CASH & CASH EQUIVALENTS
+        fs_target:
+          code: '111'
+          label: 111 ▪ Tiền
+      '1123':
+      - account_code: '1123'
+        description: Vàng tiền tệ
+        leadsheet:
+          code: D100
+          name: D100. CASH & CASH EQUIVALENTS
+        fs_target:
+          code: '111'
+          label: 111 ▪ Tiền
+      '1131':
+      - *id003
+      '1132':
+      - account_code: '1132'
+        description: Ngoại tệ
+        leadsheet:
+          code: D100
+          name: D100. CASH & CASH EQUIVALENTS
+        fs_target:
+          code: '111'
+          label: 111 ▪ Tiền
+      '1211':
+      - *id004
+      '1212':
+      - account_code: '1212'
+        description: Trái phiếu
+        leadsheet:
+          code: D200
+          name: D200. SHORT TERM INVESTMENTS
+        fs_target:
+          code: '121'
+          label: 121 ▪ Chứng khoán kinh doanh
+      '1218':
+      - account_code: '1218'
+        description: Chứng khoán và công cụ tài chính khác
+        leadsheet:
+          code: D200
+          name: D200. SHORT TERM INVESTMENTS
+        fs_target:
+          code: '121'
+          label: 121 ▪ Chứng khoán kinh doanh
+      '1282':
+      - *id005
+      '1331':
+      - *id006
+      '1332':
+      - account_code: '1332'
+        description: Thuế GTGT được khấu trừ của TSCĐ
+        leadsheet:
+          code: E300
+          name: E300. TAX BALANCES & TAX EXPENSES
+        fs_target:
+          code: '152'
+          label: 152 ▪ Thuế GTGT được khấu trừ
+      '1361':
+      - *id007
+      '1362':
+      - *id008
+      '1363':
+      - account_code: '1363'
+        description: Phải thu nội bộ về chi phí đi vay đủ điều kiện được
+          vốn hoá
+        leadsheet:
+          code: D300
+          name: D300. TRADE RECEIVABLES
+        fs_target:
+          code: '133'
+          label: 133 ▪ Phải thu nội bộ ngắn hạn
+      '1368':
+      - account_code: '1368'
+        description: Phải thu nội bộ khác
+        leadsheet:
+          code: D300
+          name: D300. TRADE RECEIVABLES
+        fs_target:
+          code: '133'
+          label: 133 ▪ Phải thu nội bộ ngắn hạn
+      136a:
+      - *id009
+      '1381':
+      - *id010
+      '1385':
+      - *id011
+      '1388':
+      - account_code: '1388'
+        description: Phải thu khác
+        leadsheet:
+          code: D800
+          name: D800. OTHERS ASSETS
+        fs_target:
+          code: '136'
+          label: 136 ▪ Phải thu ngắn hạn khác
+      138x:
+      - *id012
+      '141':
+      - *id013
+      '1412':
+      - *id014
+      '151':
+      - *id015
+      '152':
+      - *id016
+      '153':
+      - *id017
+      '1531':
+      - account_code: '1531'
+        description: Công cụ, dụng cụ
+        leadsheet:
+          code: D400
+          name: D400. INVENTORIES
+        fs_target:
+          code: '141'
+          label: 141 ▪ Hàng tồn kho
+      '1532':
+      - account_code: '1532'
+        description: Bao bì luân chuyển
+        leadsheet:
+          code: D400
+          name: D400. INVENTORIES
+        fs_target:
+          code: '141'
+          label: 141 ▪ Hàng tồn kho
+      '1533':
+      - account_code: '1533'
+        description: Đồ dùng cho thuê
+        leadsheet:
+          code: D400
+          name: D400. INVENTORIES
+        fs_target:
+          code: '141'
+          label: 141 ▪ Hàng tồn kho
+      '1541':
+      - *id018
+      '1542':
+      - *id019
+      '1551':
+      - *id020
+      '1557':
+      - account_code: '1557'
+        description: Thành phẩm bất động sản
+        leadsheet:
+          code: D400
+          name: D400. INVENTORIES
+        fs_target:
+          code: '141'
+          label: 141 ▪ Hàng tồn kho
+      '1561':
+      - *id021
+      '1562':
+      - account_code: '1562'
+        description: Chi phí thu mua hàng hóa
+        leadsheet:
+          code: D400
+          name: D400. INVENTORIES
+        fs_target:
+          code: '141'
+          label: 141 ▪ Hàng tồn kho
+      '1567':
+      - account_code: '1567'
+        description: Hàng hóa bất động sản
+        leadsheet:
+          code: D400
+          name: D400. INVENTORIES
+        fs_target:
+          code: '141'
+          label: 141 ▪ Hàng tồn kho
+      '157':
+      - *id022
+      '158':
+      - *id023
+      '1611':
+      - *id024
+      '1612':
+      - account_code: '1612'
+        description: Chi sự nghiệp năm nay
+        fs_target:
+          code: '431'
+          label: 431 ▪ Nguồn kinh phí
+      '171':
+      - *id025
+      '2111':
+      - *id026
+      '2112':
+      - account_code: '2112'
+        description: Máy móc, thiết bị
+        leadsheet:
+          code: D600
+          name: D600. TANGIBLE AND INTANGIBLE FIXED ASSETS
+        fs_target:
+          code: '222'
+          label: 222   - Nguyên giá
+      '2113':
+      - account_code: '2113'
+        description: Phương tiện vận tải, truyền dẫn
+        leadsheet:
+          code: D600
+          name: D600. TANGIBLE AND INTANGIBLE FIXED ASSETS
+        fs_target:
+          code: '222'
+          label: 222   - Nguyên giá
+      '2114':
+      - account_code: '2114'
+        description: Thiết bị, dụng cụ quản lý
+        leadsheet:
+          code: D600
+          name: D600. TANGIBLE AND INTANGIBLE FIXED ASSETS
+        fs_target:
+          code: '222'
+          label: 222   - Nguyên giá
+      '2115':
+      - account_code: '2115'
+        description: Cây lâu năm, súc vật làm việc và cho sản phẩm
+        leadsheet:
+          code: D600
+          name: D600. TANGIBLE AND INTANGIBLE FIXED ASSETS
+        fs_target:
+          code: '222'
+          label: 222   - Nguyên giá
+      '2118':
+      - account_code: '2118'
+        description: TSCĐ khác
+        leadsheet:
+          code: D600
+          name: D600. TANGIBLE AND INTANGIBLE FIXED ASSETS
+        fs_target:
+          code: '222'
+          label: 222   - Nguyên giá
+      '2121':
+      - *id027
+      '2122':
+      - account_code: '2122'
+        description: TSCĐ vô hình thuê tài chính
+        leadsheet:
+          code: D600
+          name: D600. TANGIBLE AND INTANGIBLE FIXED ASSETS
+        fs_target:
+          code: '225'
+          label: 225   - Nguyên giá
+      '2131':
+      - *id028
+      '2132':
+      - account_code: '2132'
+        description: Quyền phát hành
+        leadsheet:
+          code: D600
+          name: D600. TANGIBLE AND INTANGIBLE FIXED ASSETS
+        fs_target:
+          code: '228'
+          label: 228   - Nguyên giá
+      '2133':
+      - account_code: '2133'
+        description: Bản quyền, bằng sáng chế
+        leadsheet:
+          code: D600
+          name: D600. TANGIBLE AND INTANGIBLE FIXED ASSETS
+        fs_target:
+          code: '228'
+          label: 228   - Nguyên giá
+      '2134':
+      - account_code: '2134'
+        description: Nhãn hiệu, tên thương mại
+        leadsheet:
+          code: D600
+          name: D600. TANGIBLE AND INTANGIBLE FIXED ASSETS
+        fs_target:
+          code: '228'
+          label: 228   - Nguyên giá
+      '2135':
+      - account_code: '2135'
+        description: Chương trình phần mềm
+        leadsheet:
+          code: D600
+          name: D600. TANGIBLE AND INTANGIBLE FIXED ASSETS
+        fs_target:
+          code: '228'
+          label: 228   - Nguyên giá
+      '2136':
+      - account_code: '2136'
+        description: Giấy phép và giấy phép nhượng quyền
+        leadsheet:
+          code: D600
+          name: D600. TANGIBLE AND INTANGIBLE FIXED ASSETS
+        fs_target:
+          code: '228'
+          label: 228   - Nguyên giá
+      '2138':
+      - account_code: '2138'
+        description: TSCĐ vô hình khác
+        leadsheet:
+          code: D600
+          name: D600. TANGIBLE AND INTANGIBLE FIXED ASSETS
+        fs_target:
+          code: '228'
+          label: 228   - Nguyên giá
+      '2141':
+      - *id029
+      '2142':
+      - *id030
+      '2143':
+      - *id031
+      '2147':
+      - *id032
+      '217':
+      - *id033
+      '221':
+      - *id034
+      '222':
+      - *id035
+      '2281':
+      - *id036
+      '2291':
+      - *id037
+      '2292':
+      - *id038
+      '2294':
+      - *id039
+      '2411':
+      - *id040
+      '2412':
+      - account_code: '2412'
+        description: Xây dựng cơ bản
+        leadsheet:
+          code: D600
+          name: D600. TANGIBLE AND INTANGIBLE FIXED ASSETS
+        fs_target:
+          code: '242'
+          label: 242 ▪ Chi phí xây dựng cơ bản dở dang
+      '2413':
+      - account_code: '2413'
+        description: Sửa chữa lớn TSCĐ
+        leadsheet:
+          code: D600
+          name: D600. TANGIBLE AND INTANGIBLE FIXED ASSETS
+        fs_target:
+          code: '242'
+          label: 242 ▪ Chi phí xây dựng cơ bản dở dang
+      '2421':
+      - *id041
+      '2422':
+      - *id042
+      '243':
+      - *id043
+      '2441':
+      - *id044
+      '2442':
+      - *id045
+      '3332':
+      - *id046
+      '3333':
+      - account_code: '3333'
+        description: Thuế xuất, nhập khẩu
+        leadsheet:
+          code: E300
+          name: E300. TAX BALANCES & TAX EXPENSES
+        fs_target:
+          code: '313'
+          label: 313 ▪ Thuế và các khoản phải nộp Nhà nước
+      '3334':
+      - account_code: '3334'
+        description: Thuế thu nhập doanh nghiệp
+        leadsheet:
+          code: E300
+          name: E300. TAX BALANCES & TAX EXPENSES
+        fs_target:
+          code: '313'
+          label: 313 ▪ Thuế và các khoản phải nộp Nhà nước
+      '3335':
+      - account_code: '3335'
+        description: Thuế thu nhập cá nhân
+        leadsheet:
+          code: E300
+          name: E300. TAX BALANCES & TAX EXPENSES
+        fs_target:
+          code: '313'
+          label: 313 ▪ Thuế và các khoản phải nộp Nhà nước
+      '3336':
+      - account_code: '3336'
+        description: Thuế tài nguyên
+        leadsheet:
+          code: E300
+          name: E300. TAX BALANCES & TAX EXPENSES
+        fs_target:
+          code: '313'
+          label: 313 ▪ Thuế và các khoản phải nộp Nhà nước
+      '3337':
+      - account_code: '3337'
+        description: Thuế nhà đất, tiền thuê đất
+        leadsheet:
+          code: E300
+          name: E300. TAX BALANCES & TAX EXPENSES
+        fs_target:
+          code: '313'
+          label: 313 ▪ Thuế và các khoản phải nộp Nhà nước
+      '3339':
+      - account_code: '3339'
+        description: Phí, lệ phí và các khoản phải nộp khác
+        leadsheet:
+          code: E300
+          name: E300. TAX BALANCES & TAX EXPENSES
+        fs_target:
+          code: '313'
+          label: 313 ▪ Thuế và các khoản phải nộp Nhà nước
+      333x:
+      - *id047
+      '3341':
+      - *id048
+      '3348':
+      - account_code: '3348'
+        description: Phải trả người lao động khác
+        leadsheet:
+          code: E400
+          name: E400. PAYABLES TO EMPLOYEES
+        fs_target:
+          code: '314'
+          label: 314 ▪ Phải trả người lao động
+      '335':
+      - *id049
+      335a:
+      - *id050
+      '3361':
+      - *id051
+      '3362':
+      - *id052
+      '3363':
+      - account_code: '3363'
+        description: Phải trả nội bộ về chi phí đi vay đủ điều kiện được
+          vốn hoá
+        leadsheet:
+          code: E200
+          name: E200. TRADE PAYABLES
+        fs_target:
+          code: '316'
+          label: 316 ▪ Phải trả nội bộ ngắn hạn
+      '337':
+      - *id053
+      337x:
+      - *id054
+      '3381':
+      - *id055
+      '3382':
+      - account_code: '3382'
+        description: Kinh phí công đoàn
+        leadsheet:
+          code: E600
+          name: E600. OTHER PAYABLES
+        fs_target:
+          code: '319'
+          label: 319 ▪ Phải trả ngắn hạn khác
+      '3383':
+      - account_code: '3383'
+        description: Bảo hiểm xã hội
+        leadsheet:
+          code: E600
+          name: E600. OTHER PAYABLES
+        fs_target:
+          code: '319'
+          label: 319 ▪ Phải trả ngắn hạn khác
+      '3384':
+      - account_code: '3384'
+        description: Bảo hiểm y tế
+        leadsheet:
+          code: E600
+          name: E600. OTHER PAYABLES
+        fs_target:
+          code: '319'
+          label: 319 ▪ Phải trả ngắn hạn khác
+      '3385':
+      - account_code: '3385'
+        description: Phải trả về cổ phần hoá
+        leadsheet:
+          code: E600
+          name: E600. OTHER PAYABLES
+        fs_target:
+          code: '319'
+          label: 319 ▪ Phải trả ngắn hạn khác
+      '3386':
+      - account_code: '3386'
+        description: Bảo hiểm thất nghiệp
+        leadsheet:
+          code: E600
+          name: E600. OTHER PAYABLES
+        fs_target:
+          code: '319'
+          label: 319 ▪ Phải trả ngắn hạn khác
+      '3388':
+      - account_code: '3388'
+        description: Phải trả, phải nộp khác
+        leadsheet:
+          code: E600
+          name: E600. OTHER PAYABLES
+        fs_target:
+          code: '319'
+          label: 319 ▪ Phải trả ngắn hạn khác
+      338x:
+      - *id056
+      '3432':
+      - *id057
+      '344':
+      - *id058
+      344a:
+      - *id059
+      '347':
+      - *id060
+      '3521':
+      - *id061
+      '3522':
+      - account_code: '3522'
+        description: Dự phòng bảo hành công trình xây dựng
+        leadsheet:
+          code: E200
+          name: E200. TRADE PAYABLES
+        fs_target:
+          code: '321'
+          label: 321 ▪ Dự phòng phải trả ngắn hạn
+      '3523':
+      - account_code: '3523'
+        description: Dự phòng tái cơ cấu doanh nghiệp
+        leadsheet:
+          code: E200
+          name: E200. TRADE PAYABLES
+        fs_target:
+          code: '321'
+          label: 321 ▪ Dự phòng phải trả ngắn hạn
+      '3524':
+      - account_code: '3524'
+        description: Dự phòng phải trả khác
+        leadsheet:
+          code: E200
+          name: E200. TRADE PAYABLES
+        fs_target:
+          code: '321'
+          label: 321 ▪ Dự phòng phải trả ngắn hạn
+      '3529':
+      - *id062
+      '3531':
+      - *id063
+      '3532':
+      - account_code: '3532'
+        description: Quỹ phúc lợi
+        leadsheet:
+          code: F100
+          name: F100. EQUITY & FUNDS
+        fs_target:
+          code: '322'
+          label: 322 ▪ Quỹ khen thưởng, phúc lợi
+      '3533':
+      - account_code: '3533'
+        description: Quỹ phúc lợi đã hình thành TSCĐ
+        leadsheet:
+          code: F100
+          name: F100. EQUITY & FUNDS
+        fs_target:
+          code: '322'
+          label: 322 ▪ Quỹ khen thưởng, phúc lợi
+      '3534':
+      - account_code: '3534'
+        description: Quỹ thưởng ban quản lý điều hành công ty
+        leadsheet:
+          code: F100
+          name: F100. EQUITY & FUNDS
+        fs_target:
+          code: '322'
+          label: 322 ▪ Quỹ khen thưởng, phúc lợi
+      '3561':
+      - *id064
+      '3562':
+      - account_code: '3562'
+        description: Quỹ phát triển khoa học và công nghệ đã hình thành TSCĐ
+        leadsheet:
+          code: F100
+          name: F100. EQUITY & FUNDS
+        fs_target:
+          code: '343'
+          label: 343 ▪ Quỹ phát triển khoa học và công nghệ
+      '357':
+      - *id065
+      '4112':
+      - *id066
+      '4113':
+      - *id067
+      '4118':
+      - *id068
+      '412':
+      - *id069
+      '4131':
+      - *id070
+      '4132':
+      - account_code: '4132'
+        description: Chênh lệch tỷ giá hối đoái trong giai đoạn trước hoạt
+          động
+        leadsheet:
+          code: F100
+          name: F100. EQUITY & FUNDS
+        fs_target:
+          code: '417'
+          label: 417 ▪ Chênh lệch tỷ giá hối đoái
+      '414':
+      - *id071
+      '417':
+      - *id072
+      '418':
+      - *id073
+      '419':
+      - *id074
+      '4211':
+      - *id075
+      '4212':
+      - *id076
+      '441':
+      - *id077
+      '4611':
+      - *id078
+      '4612':
+      - account_code: '4612'
+        description: Nguồn kinh phí sự nghiệp năm nay
+        leadsheet:
+          code: F100
+          name: F100. EQUITY & FUNDS
+        fs_target:
+          code: '431'
+          label: 431 ▪ Nguồn kinh phí
+      '466':
+      - *id079
+      '5111':
+      - *id080
+      '5112':
+      - account_code: '5112'
+        description: Doanh thu bán các thành phẩm
+        leadsheet:
+          code: G100
+          name: G100. SALE AND COST OF GOOD SOLD
+        fs_target:
+          code: '01'
+          label: 01 ▪ Doanh thu
+      '5113':
+      - account_code: '5113'
+        description: Doanh thu cung cấp dịch vụ
+        leadsheet:
+          code: G100
+          name: G100. SALE AND COST OF GOOD SOLD
+        fs_target:
+          code: '01'
+          label: 01 ▪ Doanh thu
+      '5114':
+      - account_code: '5114'
+        description: Doanh thu trợ cấp, trợ giá
+        leadsheet:
+          code: G100
+          name: G100. SALE AND COST OF GOOD SOLD
+        fs_target:
+          code: '01'
+          label: 01 ▪ Doanh thu
+      '5117':
+      - account_code: '5117'
+        description: Doanh thu kinh doanh bất động sản đầu tư
+        leadsheet:
+          code: G100
+          name: G100. SALE AND COST OF GOOD SOLD
+        fs_target:
+          code: '01'
+          label: 01 ▪ Doanh thu
+      '5118':
+      - account_code: '5118'
+        description: Doanh thu khác
+        leadsheet:
+          code: G100
+          name: G100. SALE AND COST OF GOOD SOLD
+        fs_target:
+          code: '01'
+          label: 01 ▪ Doanh thu
+      '515':
+      - *id081
+      '5151':
+      - account_code: '5151'
+        description: Lãi tiền gửi
+        leadsheet:
+          code: G200
+          name: G200. FINANCIAL INCOMES & FINANCIAL EXPENSES
+        fs_target:
+          code: '21'
+          label: 21 ▪ Doanh thu hoạt động tài chính
+      '5152':
+      - account_code: '5152'
+        description: Lãi chênh lệch tỷ giá đã thực hiện
+        leadsheet:
+          code: G200
+          name: G200. FINANCIAL INCOMES & FINANCIAL EXPENSES
+        fs_target:
+          code: '21'
+          label: 21 ▪ Doanh thu hoạt động tài chính
+      '5153':
+      - account_code: '5153'
+        description: Lãi chênh lệch tỷ giá chưa thực hiện
+        leadsheet:
+          code: G200
+          name: G200. FINANCIAL INCOMES & FINANCIAL EXPENSES
+        fs_target:
+          code: '21'
+          label: 21 ▪ Doanh thu hoạt động tài chính
+      '5154':
+      - account_code: '5154'
+        description: Cổ tức, lợi nhuận được chia
+        leadsheet:
+          code: G200
+          name: G200. FINANCIAL INCOMES & FINANCIAL EXPENSES
+        fs_target:
+          code: '21'
+          label: 21 ▪ Doanh thu hoạt động tài chính
+      '5155':
+      - account_code: '5155'
+        description: Lãi thanh lý các khoản đầu tư tài chính
+        leadsheet:
+          code: G200
+          name: G200. FINANCIAL INCOMES & FINANCIAL EXPENSES
+        fs_target:
+          code: '21'
+          label: 21 ▪ Doanh thu hoạt động tài chính
+      '5159':
+      - account_code: '5159'
+        description: Doanh thu hoạt động tài chính xác
+        leadsheet:
+          code: G200
+          name: G200. FINANCIAL INCOMES & FINANCIAL EXPENSES
+        fs_target:
+          code: '21'
+          label: 21 ▪ Doanh thu hoạt động tài chính
+      '5211':
+      - *id082
+      '5212':
+      - account_code: '5212'
+        description: Giảm giá hàng bán
+        leadsheet:
+          code: G100
+          name: G100. SALE AND COST OF GOOD SOLD
+        fs_target:
+          code: '02'
+          label: 02 ▪ Các khoản giảm trừ doanh thu
+      '5213':
+      - account_code: '5213'
+        description: Hàng bán bị trả lại
+        leadsheet:
+          code: G100
+          name: G100. SALE AND COST OF GOOD SOLD
+        fs_target:
+          code: '02'
+          label: 02 ▪ Các khoản giảm trừ doanh thu
+      '632':
+      - *id083
+      '6321':
+      - account_code: '6321'
+        description: Giá vốn bán hàng hóa
+        leadsheet:
+          code: G100
+          name: G100. SALE AND COST OF GOOD SOLD
+        fs_target:
+          code: '11'
+          label: 11 ▪ Giá vốn hàng bán
+      '6322':
+      - account_code: '6322'
+        description: Giá vốn bán các thành phẩm
+        leadsheet:
+          code: G100
+          name: G100. SALE AND COST OF GOOD SOLD
+        fs_target:
+          code: '11'
+          label: 11 ▪ Giá vốn hàng bán
+      '6323':
+      - account_code: '6323'
+        description: Giá vốn cung cấp dịch vụ
+        leadsheet:
+          code: G100
+          name: G100. SALE AND COST OF GOOD SOLD
+        fs_target:
+          code: '11'
+          label: 11 ▪ Giá vốn hàng bán
+      '6327':
+      - account_code: '6327'
+        description: Giá vốn kinh doanh bất động sản đầu tư
+        leadsheet:
+          code: G100
+          name: G100. SALE AND COST OF GOOD SOLD
+        fs_target:
+          code: '11'
+          label: 11 ▪ Giá vốn hàng bán
+      '6328':
+      - account_code: '6328'
+        description: Giá vốn khác
+        leadsheet:
+          code: G100
+          name: G100. SALE AND COST OF GOOD SOLD
+        fs_target:
+          code: '11'
+          label: 11 ▪ Giá vốn hàng bán
+      '635':
+      - *id084
+      '6351':
+      - account_code: '6351'
+        description: Chi phí lãi vay
+        leadsheet:
+          code: G200
+          name: G200. FINANCIAL INCOMES & FINANCIAL EXPENSES
+        fs_target:
+          code: '22'
+          label: 22 ▪ Chi phí hoạt động tài chính
+      '6352':
+      - account_code: '6352'
+        description: Lỗ chênh lệch tỷ giá đã thực hiện
+        leadsheet:
+          code: G200
+          name: G200. FINANCIAL INCOMES & FINANCIAL EXPENSES
+        fs_target:
+          code: '22'
+          label: 22 ▪ Chi phí hoạt động tài chính
+      '6353':
+      - account_code: '6353'
+        description: Lỗ chênh lệch tỷ giá chưa thực hiện
+        leadsheet:
+          code: G200
+          name: G200. FINANCIAL INCOMES & FINANCIAL EXPENSES
+        fs_target:
+          code: '22'
+          label: 22 ▪ Chi phí hoạt động tài chính
+      '6354':
+      - account_code: '6354'
+        description: Lỗ thanh lý các khoản đầu tư tài chính
+        leadsheet:
+          code: G200
+          name: G200. FINANCIAL INCOMES & FINANCIAL EXPENSES
+        fs_target:
+          code: '22'
+          label: 22 ▪ Chi phí hoạt động tài chính
+      '6355':
+      - account_code: '6355'
+        description: Dự phòng giảm giá các khoản đầu tư
+        leadsheet:
+          code: G200
+          name: G200. FINANCIAL INCOMES & FINANCIAL EXPENSES
+        fs_target:
+          code: '22'
+          label: 22 ▪ Chi phí hoạt động tài chính
+      '6356':
+      - account_code: '6356'
+        description: Chi phí tài chính khác
+        leadsheet:
+          code: G200
+          name: G200. FINANCIAL INCOMES & FINANCIAL EXPENSES
+        fs_target:
+          code: '22'
+          label: 22 ▪ Chi phí hoạt động tài chính
+      '6411':
+      - *id085
+      '6412':
+      - account_code: '6412'
+        description: Chi phí nguyên vật liệu, bao bì
+        leadsheet:
+          code: G300
+          name: G300. SELLING EXPENSES & ADMINISTRATIVE EXPENSES
+        fs_target:
+          code: '25'
+          label: 25 ▪ Chi phí bán hàng
+      '6413':
+      - account_code: '6413'
+        description: Chi phí dụng cụ, đồ dùng
+        leadsheet:
+          code: G300
+          name: G300. SELLING EXPENSES & ADMINISTRATIVE EXPENSES
+        fs_target:
+          code: '25'
+          label: 25 ▪ Chi phí bán hàng
+      '6414':
+      - account_code: '6414'
+        description: Chi phí khấu hao TSCĐ
+        leadsheet:
+          code: G300
+          name: G300. SELLING EXPENSES & ADMINISTRATIVE EXPENSES
+        fs_target:
+          code: '25'
+          label: 25 ▪ Chi phí bán hàng
+      '6415':
+      - account_code: '6415'
+        description: Chi phí bảo hành
+        leadsheet:
+          code: G300
+          name: G300. SELLING EXPENSES & ADMINISTRATIVE EXPENSES
+        fs_target:
+          code: '25'
+          label: 25 ▪ Chi phí bán hàng
+      '6417':
+      - account_code: '6417'
+        description: Chi phí dịch vụ mua ngoài
+        leadsheet:
+          code: G300
+          name: G300. SELLING EXPENSES & ADMINISTRATIVE EXPENSES
+        fs_target:
+          code: '25'
+          label: 25 ▪ Chi phí bán hàng
+      '6418':
+      - account_code: '6418'
+        description: Chi phí bằng tiền khác
+        leadsheet:
+          code: G300
+          name: G300. SELLING EXPENSES & ADMINISTRATIVE EXPENSES
+        fs_target:
+          code: '25'
+          label: 25 ▪ Chi phí bán hàng
+      '6421':
+      - *id086
+      '6422':
+      - account_code: '6422'
+        description: Chi phí vật liệu quản lý
+        leadsheet:
+          code: G300
+          name: G300. SELLING EXPENSES & ADMINISTRATIVE EXPENSES
+        fs_target:
+          code: '26'
+          label: 26 ▪ Chi phí quản lý doanh nghiệp
+      '6423':
+      - account_code: '6423'
+        description: Chi phí đồ dùng văn phòng
+        leadsheet:
+          code: G300
+          name: G300. SELLING EXPENSES & ADMINISTRATIVE EXPENSES
+        fs_target:
+          code: '26'
+          label: 26 ▪ Chi phí quản lý doanh nghiệp
+      '6424':
+      - account_code: '6424'
+        description: Chi phí khấu hao TSCĐ
+        leadsheet:
+          code: G300
+          name: G300. SELLING EXPENSES & ADMINISTRATIVE EXPENSES
+        fs_target:
+          code: '26'
+          label: 26 ▪ Chi phí quản lý doanh nghiệp
+      '6425':
+      - account_code: '6425'
+        description: Thuế, phí và lệ phí
+        leadsheet:
+          code: G300
+          name: G300. SELLING EXPENSES & ADMINISTRATIVE EXPENSES
+        fs_target:
+          code: '26'
+          label: 26 ▪ Chi phí quản lý doanh nghiệp
+      '6426':
+      - account_code: '6426'
+        description: Chi phí dự phòng
+        leadsheet:
+          code: G300
+          name: G300. SELLING EXPENSES & ADMINISTRATIVE EXPENSES
+        fs_target:
+          code: '26'
+          label: 26 ▪ Chi phí quản lý doanh nghiệp
+      '6427':
+      - account_code: '6427'
+        description: Chi phí dịch vụ mua ngoài
+        leadsheet:
+          code: G300
+          name: G300. SELLING EXPENSES & ADMINISTRATIVE EXPENSES
+        fs_target:
+          code: '26'
+          label: 26 ▪ Chi phí quản lý doanh nghiệp
+      '6428':
+      - account_code: '6428'
+        description: Chi phí bằng tiền khác
+        leadsheet:
+          code: G300
+          name: G300. SELLING EXPENSES & ADMINISTRATIVE EXPENSES
+        fs_target:
+          code: '26'
+          label: 26 ▪ Chi phí quản lý doanh nghiệp
+      '711':
+      - *id087
+      '7111':
+      - account_code: '7111'
+        description: Thu nhập từ thanh lý tài sản
+        leadsheet:
+          code: G400
+          name: G400. OTHER INCOMES & OTHER EXPENSES
+        fs_target:
+          code: '31'
+          label: 31 ▪ Thu nhập khác
+      '7112':
+      - account_code: '7112'
+        description: Chênh lệch năng suất
+        leadsheet:
+          code: G400
+          name: G400. OTHER INCOMES & OTHER EXPENSES
+        fs_target:
+          code: '31'
+          label: 31 ▪ Thu nhập khác
+      '7113':
+      - account_code: '7113'
+        description: Thu từ bảo hiểm bồi thường hàng hỏng
+        leadsheet:
+          code: G400
+          name: G400. OTHER INCOMES & OTHER EXPENSES
+        fs_target:
+          code: '31'
+          label: 31 ▪ Thu nhập khác
+      '7114':
+      - account_code: '7114'
+        description: Hàng phi mậu dịch
+        leadsheet:
+          code: G400
+          name: G400. OTHER INCOMES & OTHER EXPENSES
+        fs_target:
+          code: '31'
+          label: 31 ▪ Thu nhập khác
+      '7115':
+      - account_code: '7115'
+        description: Thu hồi nợ khó đòi đã xóa sổ
+        leadsheet:
+          code: G400
+          name: G400. OTHER INCOMES & OTHER EXPENSES
+        fs_target:
+          code: '31'
+          label: 31 ▪ Thu nhập khác
+      '7116':
+      - account_code: '7116'
+        description: Thu nhập khác
+        leadsheet:
+          code: G400
+          name: G400. OTHER INCOMES & OTHER EXPENSES
+        fs_target:
+          code: '31'
+          label: 31 ▪ Thu nhập khác
+      '811':
+      - *id088
+      '8111':
+      - account_code: '8111'
+        description: Lỗ do thanh lý tài sản
+        leadsheet:
+          code: G400
+          name: G400. OTHER INCOMES & OTHER EXPENSES
+        fs_target:
+          code: '32'
+          label: 32 ▪ Chi phí khác
+      '8112':
+      - account_code: '8112'
+        description: Phạt vi phạm hành chính
+        leadsheet:
+          code: G400
+          name: G400. OTHER INCOMES & OTHER EXPENSES
+        fs_target:
+          code: '32'
+          label: 32 ▪ Chi phí khác
+      '8113':
+      - account_code: '8113'
+        description: Chênh lệch năng suất
+        leadsheet:
+          code: G400
+          name: G400. OTHER INCOMES & OTHER EXPENSES
+        fs_target:
+          code: '32'
+          label: 32 ▪ Chi phí khác
+      '8114':
+      - account_code: '8114'
+        description: Khác
+        leadsheet:
+          code: G400
+          name: G400. OTHER INCOMES & OTHER EXPENSES
+        fs_target:
+          code: '32'
+          label: 32 ▪ Chi phí khác
+      '8211':
+      - *id089
+      '8212':
+      - *id090
+    sub_level:
+      '12811':
+      - account_code: '12811'
+        description: Tiền gửi có kỳ hạn (=< 3 tháng)
+        leadsheet:
+          code: D100
+          name: D100. CASH & CASH EQUIVALENTS
+        fs_target:
+          code: '112'
+          label: 112 ▪ Các khoản tương đương tiền
+      '12812':
+      - account_code: '12812'
+        description: Tiền gửi có kỳ hạn (3 tháng < X =<12 tháng)
+        leadsheet:
+          code: D200
+          name: D200. SHORT TERM INVESTMENTS
+        fs_target:
+          code: '123'
+          label: 123 ▪ Đầu tư nắm giữ đến ngày đáo hạn
+      '12813':
+      - account_code: '12813'
+        description: Tiền gửi có kỳ hạn (> 12 tháng)
+        leadsheet:
+          code: D700
+          name: D700. LONG TERM INVESTMENT & INVESTMENT PROPERTY
+        fs_target:
+          code: '255'
+          label: 255 ▪ Đầu tư nắm giữ đến ngày đáo hạn
+      '1283':
+      - account_code: '1283'
+        description: Cho vay
+        leadsheet:
+          code: D200
+          name: D200. SHORT TERM INVESTMENTS
+        fs_target:
+          code: '135'
+          label: 135 ▪ Phải thu về cho vay ngắn hạn
+      1283a:
+      - account_code: 1283a
+        description: Cho vay - dài hạn
+        leadsheet:
+          code: D700
+          name: D700. LONG TERM INVESTMENT & INVESTMENT PROPERTY
+        fs_target:
+          code: '215'
+          label: 215 ▪ Phải thu về cho vay dài hạn
+      '1288':
+      - account_code: '1288'
+        description: Các khoản đầu tư khác nắm giữ đến ngày đáo hạn
+        leadsheet:
+          code: D200
+          name: D200. SHORT TERM INVESTMENTS
+        fs_target:
+          code: '123'
+          label: 123 ▪ Đầu tư nắm giữ đến ngày đáo hạn
+      1288 (<3 tháng):
+      - account_code: 1288 (<3 tháng)
+        description: Các khoản đầu tư khác nắm giữ đến ngày đáo hạn
+        leadsheet:
+          code: D100
+          name: D100. CASH & CASH EQUIVALENTS
+        fs_target:
+          code: '112'
+          label: 112 ▪ Các khoản tương đương tiền
+      1288a:
+      - account_code: 1288a
+        description: Dài hạn - Các khoản đầu tư khác nắm giữ đến ngày đáo
+          hạn
+        leadsheet:
+          code: D700
+          name: D700. LONG TERM INVESTMENT & INVESTMENT PROPERTY
+        fs_target:
+          code: '255'
+          label: 255 ▪ Đầu tư nắm giữ đến ngày đáo hạn
+      '1311':
+      - account_code: '1311'
+        description: Phải thu của khách hàng (ngắn hạn)
+        leadsheet:
+          code: D300
+          name: D300. TRADE RECEIVABLES
+        fs_target:
+          code: '131'
+          label: 131 ▪ Phải thu ngắn hạn của khách hàng
+      1311x:
+      - account_code: 1311x
+        description: Người mua trả tiền trước (ngắn hạn)
+        leadsheet:
+          code: D300
+          name: D300. TRADE RECEIVABLES
+        fs_target:
+          code: '312'
+          label: 312 ▪ Người mua trả tiền trước ngắn hạn
+      '1312':
+      - account_code: '1312'
+        description: Phải thu của khách hàng (dài hạn)
+        leadsheet:
+          code: D300
+          name: D300. TRADE RECEIVABLES
+        fs_target:
+          code: '211'
+          label: 211 ▪ Phải thu dài hạn của khách hàng
+      1312x:
+      - account_code: 1312x
+        description: Người mua trả tiền trước (dài hạn)
+        leadsheet:
+          code: D300
+          name: D300. TRADE RECEIVABLES
+        fs_target:
+          code: '332'
+          label: 332 ▪ Người mua trả tiền trước dài hạn
+      138a:
+      - account_code: 138a
+        description: Phải thu khác - dài hạn
+        leadsheet:
+          code: D800
+          name: D800. OTHERS ASSETS
+        fs_target:
+          code: '216'
+          label: 216 ▪ Phải thu dài hạn khác
+      138ax:
+      - account_code: 138ax
+        description: Dư có TK 138 (dài hạn)
+        leadsheet:
+          code: D800
+          name: D800. OTHERS ASSETS
+        fs_target:
+          code: '337'
+          label: 337 ▪ Phải trả dài hạn khác
+      '1534':
+      - account_code: '1534'
+        description: Thiết bị, phụ tùng thay thế
+        leadsheet:
+          code: D400
+          name: D400. INVENTORIES
+        fs_target:
+          code: '141'
+          label: 141 ▪ Hàng tồn kho
+      1534a:
+      - account_code: 1534a
+        description: Thiết bị, phụ tùng thay thế - dài hạn
+        leadsheet:
+          code: D400
+          name: D400. INVENTORIES
+        fs_target:
+          code: '263'
+          label: 263 ▪ Thiết bị, vật tư, phụ tùng thay thế dài hạn
+      '2288':
+      - account_code: '2288'
+        description: Đầu tư khác
+        leadsheet:
+          code: D200
+          name: D200. SHORT TERM INVESTMENTS
+        fs_target:
+          code: '155'
+          label: 155 ▪ Tài sản ngắn hạn khác
+      2288a:
+      - account_code: 2288a
+        description: Đầu tư khác - dài hạn
+        leadsheet:
+          code: D700
+          name: D700. LONG TERM INVESTMENT & INVESTMENT PROPERTY
+        fs_target:
+          code: '268'
+          label: 268 ▪ Tài sản dài hạn khác
+      '2293':
+      - account_code: '2293'
+        description: Dự phòng phải thu khó đòi
+        leadsheet:
+          code: D300
+          name: D300. TRADE RECEIVABLES
+        fs_target:
+          code: '137'
+          label: 137 ▪ Dự phòng phải thu ngắn hạn khó đòi
+      2293a:
+      - account_code: 2293a
+        description: Dự phòng phải thu dài hạn khó đòi
+        leadsheet:
+          code: D300
+          name: D300. TRADE RECEIVABLES
+        fs_target:
+          code: '219'
+          label: 219 ▪ Dự phòng phải thu dài hạn khó đòi
+      '3311':
+      - account_code: '3311'
+        description: Phải trả cho người bán
+        leadsheet:
+          code: E200
+          name: E200. TRADE PAYABLES
+        fs_target:
+          code: '311'
+          label: 311 ▪ Phải trả cho người bán ngắn hạn
+      3311x:
+      - account_code: 3311x
+        description: Trả trước cho người bán (ngắn hạn - N331)
+        leadsheet:
+          code: E200
+          name: E200. TRADE PAYABLES
+        fs_target:
+          code: '132'
+          label: 132 ▪ Trả trước cho người bán ngắn hạn
+      '3312':
+      - account_code: '3312'
+        description: Phải trả dài hạn cho người bán
+        leadsheet:
+          code: E200
+          name: E200. TRADE PAYABLES
+        fs_target:
+          code: '331'
+          label: 331 ▪ Phải trả dài hạn người bán
+      3312x:
+      - account_code: 3312x
+        description: Trả trước cho người bán (dài hạn - N331)
+        leadsheet:
+          code: E200
+          name: E200. TRADE PAYABLES
+        fs_target:
+          code: '212'
+          label: 212 ▪ Trả trước cho người bán dài hạn
+      '33311':
+      - account_code: '33311'
+        description: Thuế GTGT đầu ra
+        leadsheet:
+          code: E300
+          name: E300. TAX BALANCES & TAX EXPENSES
+        fs_target:
+          code: '313'
+          label: 313 ▪ Thuế và các khoản phải nộp Nhà nước
+      '33312':
+      - account_code: '33312'
+        description: Thuế GTGT hàng nhập khẩu
+        leadsheet:
+          code: E300
+          name: E300. TAX BALANCES & TAX EXPENSES
+        fs_target:
+          code: '313'
+          label: 313 ▪ Thuế và các khoản phải nộp Nhà nước
+      '33381':
+      - account_code: '33381'
+        description: Thuế bảo vệ môi trường
+        leadsheet:
+          code: E300
+          name: E300. TAX BALANCES & TAX EXPENSES
+        fs_target:
+          code: '313'
+          label: 313 ▪ Thuế và các khoản phải nộp Nhà nước
+      '33382':
+      - account_code: '33382'
+        description: Các loại thuế khác
+        leadsheet:
+          code: E300
+          name: E300. TAX BALANCES & TAX EXPENSES
+        fs_target:
+          code: '313'
+          label: 313 ▪ Thuế và các khoản phải nộp Nhà nước
+      334ax:
+      - account_code: 334ax
+        description: Dư nợ TK 334 - dài hạn
+        leadsheet:
+          code: E400
+          name: E400. PAYABLES TO EMPLOYEES
+        fs_target:
+          code: '216'
+          label: 216 ▪ Phải thu dài hạn khác
+      334x:
+      - account_code: 334x
+        description: Dư nợ TK 334
+        leadsheet:
+          code: E400
+          name: E400. PAYABLES TO EMPLOYEES
+        fs_target:
+          code: '136'
+          label: 136 ▪ Phải thu ngắn hạn khác
+      '3368':
+      - account_code: '3368'
+        description: Phải trả nội bộ khác
+        leadsheet:
+          code: E200
+          name: E200. TRADE PAYABLES
+        fs_target:
+          code: '316'
+          label: 316 ▪ Phải trả nội bộ ngắn hạn
+      3368a:
+      - account_code: 3368a
+        description: Phải trả nội bộ khác - dài hạn
+        leadsheet:
+          code: E200
+          name: E200. TRADE PAYABLES
+        fs_target:
+          code: '335'
+          label: 335 ▪ Phải trả nội bộ dài hạn
+      '3387':
+      - account_code: '3387'
+        description: Doanh thu chưa thực hiện
+        leadsheet:
+          code: E200
+          name: E200. TRADE PAYABLES
+        fs_target:
+          code: '318'
+          label: 318 ▪ Doanh thu chưa thực hiện ngắn hạn
+      3387a:
+      - account_code: 3387a
+        description: Doanh thu chưa thực hiện - dài hạn
+        leadsheet:
+          code: E200
+          name: E200. TRADE PAYABLES
+        fs_target:
+          code: '336'
+          label: 336 ▪ Doanh thu chưa thực hiện dài hạn
+      338a:
+      - account_code: 338a
+        description: Phải trả khác - dài hạn
+        leadsheet:
+          code: E600
+          name: E600. OTHER PAYABLES
+        fs_target:
+          code: '337'
+          label: 337 ▪ Phải trả dài hạn khác
+      338ax:
+      - account_code: 338ax
+        description: Dư nợ TK 338 - dài hạn
+        leadsheet:
+          code: E600
+          name: E600. OTHER PAYABLES
+        fs_target:
+          code: '216'
+          label: 216 ▪ Phải thu dài hạn khác
+      '34111':
+      - account_code: '34111'
+        description: Các khoản đi vay (ngắn hạn)
+        leadsheet:
+          code: E100
+          name: E100. LOANS AND BORROWING
+        fs_target:
+          code: '320'
+          label: 320 ▪ Vay và nợ thuê tài chính ngắn hạn
+      '34112':
+      - account_code: '34112'
+        description: Các khoản đi vay (dài hạn)
+        leadsheet:
+          code: E100
+          name: E100. LOANS AND BORROWING
+        fs_target:
+          code: '338'
+          label: 338 ▪ Vay và nợ thuê tài chính dài hạn
+      '34121':
+      - account_code: '34121'
+        description: Nợ thuê tài chính (ngắn hạn)
+        leadsheet:
+          code: E100
+          name: E100. LOANS AND BORROWING
+        fs_target:
+          code: '320'
+          label: 320 ▪ Vay và nợ thuê tài chính ngắn hạn
+      '34122':
+      - account_code: '34122'
+        description: Nợ thuê tài chính (dài hạn)
+        leadsheet:
+          code: E100
+          name: E100. LOANS AND BORROWING
+        fs_target:
+          code: '338'
+          label: 338 ▪ Vay và nợ thuê tài chính dài hạn
+      '34311':
+      - account_code: '34311'
+        description: Mệnh giá trái phiếu
+        leadsheet:
+          code: E100
+          name: E100. LOANS AND BORROWING
+        fs_target:
+          code: '320'
+          label: 320 ▪ Vay và nợ thuê tài chính ngắn hạn
+      34311a:
+      - account_code: 34311a
+        description: Mệnh giá trái phiếu - dài hạn
+        leadsheet:
+          code: E100
+          name: E100. LOANS AND BORROWING
+        fs_target:
+          code: '338'
+          label: 338 ▪ Vay và nợ thuê tài chính dài hạn
+      '34312':
+      - account_code: '34312'
+        description: Chiết khấu trái phiếu
+        leadsheet:
+          code: E100
+          name: E100. LOANS AND BORROWING
+        fs_target:
+          code: '338'
+          label: 338 ▪ Vay và nợ thuê tài chính dài hạn
+      '34313':
+      - account_code: '34313'
+        description: Phụ trội trái phiếu
+        leadsheet:
+          code: E100
+          name: E100. LOANS AND BORROWING
+        fs_target:
+          code: '338'
+          label: 338 ▪ Vay và nợ thuê tài chính dài hạn
+      '41111':
+      - account_code: '41111'
+        description: Cổ phiếu phổ thông có quyền biểu quyết
+        leadsheet:
+          code: F100
+          name: F100. EQUITY & FUNDS
+        fs_target:
+          code: 411a
+          label: 411a   - Cổ phiếu phổ thông có quyền biểu quyết
+      41112-1:
+      - account_code: 41112-1
+        description: Cổ phiếu ưu đãi - VCSH
+        leadsheet:
+          code: F100
+          name: F100. EQUITY & FUNDS
+        fs_target:
+          code: 411b
+          label: 411b   - Cổ phiếu ưu đãi
+      41112-2:
+      - account_code: 41112-2
+        description: Cổ phiếu ưu đãi - NPT
+        leadsheet:
+          code: E100
+          name: E100. LOANS AND BORROWING
+        fs_target:
+          code: '340'
+          label: 340 ▪ Cổ phiếu ưu đãi
+metadata:
+  total_mappings: 240
+  unique_first_level: 66
+  unique_second_level: 192
+  unique_sub_level: 47
+  note: First-level mappings are aggregated fallbacks from second-level mappings
